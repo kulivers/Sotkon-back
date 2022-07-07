@@ -8,7 +8,8 @@ namespace Entities
     {
         
         public int Id { get; set; }
-      
+
+        public Ban Ban { get; set; }
         
         public DateTime Time { get; set; }
         

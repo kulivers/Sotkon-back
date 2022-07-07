@@ -5,13 +5,9 @@ namespace Repository
 {
     public class RepositoryContext : DbContext
     {
-        // public DbSet<Baget> Bagets { get; set; }
-        // public DbSet<Crendel> Crendels { get; set; }
-        // public DbSet<Croissant> Croissants { get; set; }
-        // public DbSet<Smetannik> Smetanniks { get; set; }
-        //
-        // public DbSet<Record> Records { get; set; }
-
+        public DbSet<Record> Records { get; set; }
+        public DbSet<Ban> Bans { get; set; }
+        
         public RepositoryContext()
         {
         }
@@ -29,6 +25,7 @@ namespace Repository
                 .HasValue<Crendel>("Crendel")
                 .HasValue<Croissant>("Croissant")
                 .HasValue<Smetannik>("Smetannik");
+            
         }
     }
 }
