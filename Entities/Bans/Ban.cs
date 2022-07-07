@@ -41,7 +41,7 @@ namespace Entities
         {
             if (startPrice > 100)
                 throw new Exception("Price cant be more than 100 rubles");
-            if (StartPrice <= 0)
+            if (StartPrice < 0)
                 throw new Exception("Price cant be <=0");
             DropTime = dropTime;
             ControlSaleTime = controlSaleTime;

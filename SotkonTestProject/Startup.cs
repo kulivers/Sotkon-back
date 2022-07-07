@@ -35,6 +35,7 @@ namespace SotkonTestProject
                     optionsBuilder => optionsBuilder.MigrationsAssembly("SotkonTestProject"));
             });
             services.AddScoped<IBackeryService, BackeryService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

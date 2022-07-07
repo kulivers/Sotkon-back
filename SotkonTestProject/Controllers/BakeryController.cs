@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -6,7 +7,7 @@ using Services;
 namespace SotkonTestProject.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BakeryController : ControllerBase
     {
         private readonly IBackeryService _backeryService;
@@ -20,7 +21,14 @@ namespace SotkonTestProject.Controllers
         public IActionResult Get()
         {
             var a = _backeryService.State;
-            return Ok("im alive");
+            return Ok(a);
+        }
+        
+        [HttpPost]
+        public IActionResult MakeStep()
+        {
+            _backeryService.MakeStep(new TimeSpan(1,0,0));
+            return Ok();
         }
     }
 }
