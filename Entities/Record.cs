@@ -11,7 +11,7 @@ namespace Entities
 
         public Ban Ban { get; set; }
         
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
         
         [Column(TypeName = "money")]
         public decimal StartPrice { get; set; }

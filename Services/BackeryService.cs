@@ -9,26 +9,38 @@ namespace Services
 {
     public class BackeryService : IBackeryService
     {
-        private readonly RepositoryContext _context;
+        private readonly IBackeryRepository _repository;
         public IEnumerable<Ban> State { get; set; }
-        private BakerySimulator BakerySimulator { get; set; }
 
 
-        public BackeryService(RepositoryContext context)
+        public BackeryService(IBackeryRepository repository)
         {
-            _context = context;
-            BakerySimulator = new BakerySimulator(20);
-            State = BakerySimulator.Bans;
+            _repository = repository;
+        }
+        
+        public async Task<IEnumerable<Ban>> GetBans()
+        {
+            return await _repository.GetAllBans();
         }
 
-        private async Task SaveStateToDb()
+        public async Task InitRandomBans() => await _repository.AddRangeBenAsync(BakerySimulator.GetRandomBans(20));
+
+        public async Task<IEnumerable<Ban>> MakeStepGetNextState(TimeSpan span)
         {
-            _context.Bans.Add(State.ElementAt(0)); //todo change it
+            var cur = await GetBans();
+            var next = BakerySimulator.GetNextState(cur,span);
+            await UpdateAllBans(next);
+            return next;
         }
 
-        public async void MakeStep(TimeSpan span)
+        public Task UpdateAllBans(IEnumerable<Ban> bans)
         {
-            foreach (var ban in State) ban.DropPrice(span);
+            
+        }
+
+        public async Task DeleteAllBans()
+        {
+            await _repository.DeleteAllBans();
         }
     }
 }

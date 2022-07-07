@@ -34,6 +34,7 @@ namespace SotkonTestProject
                 builder.UseSqlServer(Configuration.GetConnectionString("Sotkon"),
                     optionsBuilder => optionsBuilder.MigrationsAssembly("SotkonTestProject"));
             });
+            services.AddScoped<IBackeryRepository, BackeryRepository>();
             services.AddScoped<IBackeryService, BackeryService>();
             
         }

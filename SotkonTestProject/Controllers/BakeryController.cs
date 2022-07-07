@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -17,17 +18,27 @@ namespace SotkonTestProject.Controllers
             _backeryService = backeryService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+
+        [HttpGet("init")]
+        public async Task Init()
         {
-            var a = _backeryService.State;
-            return Ok(a);
+            await _backeryService.InitRandomBans();
+            Ok();
         }
-        
+
+        [HttpGet]
+        public async Task<IEnumerable<Ban>> Get() => await _backeryService.GetBans();
+
         [HttpPost]
         public IActionResult MakeStep()
         {
-            _backeryService.MakeStep(new TimeSpan(1,0,0));
+            _backeryService.MakeStepGetNextState(new TimeSpan(1,0,0));
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAllBans()
+        {
+            await _backeryService.DeleteAllBans();
             return Ok();
         }
     }

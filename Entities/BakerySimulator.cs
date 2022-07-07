@@ -4,15 +4,9 @@ using System.Linq;
 
 namespace Entities
 {
-    public class BakerySimulator
+    public static class BakerySimulator
     {
-        public IEnumerable<Ban> Bans { get; set; }
-
-        public BakerySimulator(int bansCount)
-        {
-            Bans = GetRandomBans(bansCount);
-        }
-        private IEnumerable<Ban> GetRandomBans(int count)
+        public static IEnumerable<Ban> GetRandomBans(int count)
         {
             //можно было сделать BansFactory, но просто так быстрее
             var bans = new Stack<Ban>();
@@ -37,12 +31,15 @@ namespace Entities
                         break;
                 }
             }
+
             return bans;
         }
 
-        public void MakeStep(TimeSpan timeSpend)
+        public static IEnumerable<Ban> GetNextState(IEnumerable<Ban> curBans, TimeSpan timeSpend)
         {
-            foreach (var ban in Bans) ban.DropPrice(timeSpend);
+            var bans = curBans.ToArray();//todo try without it
+            foreach (var ban in bans) ban.DropPrice(timeSpend);
+            return bans;
         }
     }
 }

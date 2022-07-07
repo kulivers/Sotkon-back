@@ -13,11 +13,11 @@ namespace Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
+
         public TimeSpan ExistsTime { get; set; }
+        public TimeSpan ControlSaleTime { get; set; } //контрольный срок продажи
         public TimeSpan DropTime { get; set; }
         public bool IsDroped { get; set; } = false;
-        [Column(TypeName = "money")] 
-        public TimeSpan ControlSaleTime { get; set; } //контрольный срок продажи
         [Column(TypeName = "money")] public decimal StartPrice { get; set; }
         [Column(TypeName = "money")] public decimal CurrentPrice { get; set; }
 
@@ -32,7 +32,6 @@ namespace Entities
                 return;
             }
 
-            ;
             CurrentPrice -= StartPrice * 0.02m;
             if (CurrentPrice < 0) CurrentPrice = 0;
         }

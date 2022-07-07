@@ -1,5 +1,6 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Repository
 {
@@ -7,7 +8,7 @@ namespace Repository
     {
         // public DbSet<Record> Records { get; set; }
         public DbSet<Ban> Bans { get; set; }
-        
+
         public RepositoryContext()
         {
         }
@@ -18,8 +19,10 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Ban>().Property(b => b.ExistsTime).HasConversion(new TimeSpanToTicksConverter());
+            modelBuilder.Entity<Ban>().Property(b => b.ControlSaleTime).HasConversion(new TimeSpanToTicksConverter());
+            modelBuilder.Entity<Ban>().Property(b => b.DropTime).HasConversion(new TimeSpanToTicksConverter());
 
-            
             modelBuilder.Entity<Ban>()
                 .ToTable("Bans")
                 .HasDiscriminator<string>("BanType")
@@ -29,7 +32,6 @@ namespace Repository
                 .HasValue<Smetannik>("Smetannik");
 
             modelBuilder.Entity<Ban>().Property("BanType").HasColumnType("nvarchar(20)");
-
         }
     }
 }
