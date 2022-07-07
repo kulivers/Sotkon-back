@@ -8,19 +8,19 @@ namespace Entities
     {
         protected Ban()
         {
-            
         }
-        
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
-        [NotMapped] public TimeSpan ExistsTime { get; set; }
+        public TimeSpan ExistsTime { get; set; }
         public TimeSpan DropTime { get; set; }
-        [NotMapped] public bool IsDroped { get; set; } = false;
+        public bool IsDroped { get; set; } = false;
+        [Column(TypeName = "money")] 
         public TimeSpan ControlSaleTime { get; set; } //контрольный срок продажи
-        [NotMapped] public decimal StartPrice { get; set; }
-        [NotMapped] public decimal CurrentPrice { get; set; }
-        
+        [Column(TypeName = "money")] public decimal StartPrice { get; set; }
+        [Column(TypeName = "money")] public decimal CurrentPrice { get; set; }
+
         public virtual void DropPrice(TimeSpan timeSpent)
         {
             if (IsDroped)

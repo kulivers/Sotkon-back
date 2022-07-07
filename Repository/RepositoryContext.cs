@@ -5,7 +5,7 @@ namespace Repository
 {
     public class RepositoryContext : DbContext
     {
-        public DbSet<Record> Records { get; set; }
+        // public DbSet<Record> Records { get; set; }
         public DbSet<Ban> Bans { get; set; }
         
         public RepositoryContext()
@@ -18,6 +18,8 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            
             modelBuilder.Entity<Ban>()
                 .ToTable("Bans")
                 .HasDiscriminator<string>("BanType")
