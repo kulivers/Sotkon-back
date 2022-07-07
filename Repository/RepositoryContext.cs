@@ -25,7 +25,9 @@ namespace Repository
                 .HasValue<Crendel>("Crendel")
                 .HasValue<Croissant>("Croissant")
                 .HasValue<Smetannik>("Smetannik");
-            
+
+            modelBuilder.Entity<Ban>().Property("BanType").HasColumnType("nvarchar(20)");
+
         }
     }
 }

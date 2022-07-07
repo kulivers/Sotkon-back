@@ -13,10 +13,13 @@ namespace Entities
         
         public DateTime Time { get; set; }
         
+        [Column(TypeName = "money")]
         public decimal StartPrice { get; set; }
         
+        [Column(TypeName = "money")]
         public decimal CurrentPrice { get; set; }
 
+        [Column(TypeName = "money")]
         public decimal NextPrice { get; set; }
 
         
